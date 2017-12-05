@@ -3,7 +3,7 @@
     set G_ECHO_ON=TRUE 
 )
 
-REM # Diosco, 2016
+REM # Diosco, 2017
 REM #
 set   ScrName=oraenv
 set   Version=1.0.0
