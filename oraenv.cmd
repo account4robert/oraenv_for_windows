@@ -14,7 +14,7 @@ set DL1=
 set DL2= 
 REM # 
 REM # Version History
-REM # 1.0.0	5-12-2017  RSK  bugfix forms entries
+REM # 1.0.0	5-12-2017  RSK  initial
 REM ###############################
 
 
