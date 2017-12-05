@@ -3,10 +3,10 @@
     set G_ECHO_ON=TRUE 
 )
 
-REM # Diosco, 2011
+REM # Diosco, 2016
 REM #
 set   ScrName=oraenv
-set   Version=1.0.20
+set   Version=1.0.0
 REM #
 REM # Description :
 set DL0= set the oracle environment variable for a specific database.
@@ -14,7 +14,7 @@ set DL1=
 set DL2= 
 REM # 
 REM # Version History
-REM # 1.0.20	24-01-2011  RSK  bugfix forms entries
+REM # 1.0.0	5-12-2017  RSK  bugfix forms entries
 REM ###############################
 
 
