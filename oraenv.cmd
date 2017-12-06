@@ -6,15 +6,15 @@
 REM # Diosco, 2017
 REM #
 set   ScrName=oraenv
-set   Version=1.0.0
+set   Version=2.0.0
 REM #
 REM # Description :
-set DL0= set the oracle environment variable for a specific database.
+set DL0=Set the oracle environment variable for a specific database.
 set DL1= 
 set DL2= 
 REM # 
 REM # Version History
-REM # 1.0.0	5-12-2017  RSK  initial.
+REM # 2.0.0	5-12-2017  RSK  initial.
 REM ###############################
 
 
@@ -22,37 +22,33 @@ goto :MAIN
 
 REM ############# script parameters ###############
 
-REM # STANDALONE parameter uses when no retrieve parameters from a database is requered
-
-set STANDALONE=FALSE
 SET EXIT_CODE=0
-SET ORACLE_DB=TRUE
 
 REM ############# set parameters ###############
 
 
-REM ############# Oracle Databases ###############
+REM ############# set Oracle Oracle ###############
 
-#####
-#
-#####
+REM #####
+REM # Oracle Software
+REM #####
 
-:SetEnvFor_ORADB10G
+:SetEnvFor_ORADBSW
 
 set ORACLE_SID=
 set CONNECT_STRING=
 
 REM # Oracle Software Paramaters
 set ORACLE_BASE=<=====ORACLE_BASE====>
-set ORACLE_HOME=%ORACLE_BASE%\oradb10g
+set ORACLE_HOME=<=====ORACLE_HOME====>
 set TNS_ADMIN=%ORACLE_HOME%\network\admin
 set PATH=%ORACLE_HOME%;%ORACLE_HOME%\bin;%ORACLE_HOME%\OPatch;%PATH%
 
 goto :EOF
 
-#####
-#
-#####
+REM #####
+REM # Active Oracle Listener
+REM #####
 
 :SetEnvFor_LSNR
 
@@ -61,31 +57,30 @@ set CONNECT_STRING=
 
 REM # Oracle Software Paramaters
 set ORACLE_BASE=<=====ORACLE_BASE====>
-set ORACLE_HOME=%ORACLE_BASE%\oradb10g
+set ORACLE_HOME=<=====ORACLE_HOME====>
 set TNS_ADMIN=%ORACLE_HOME%\network\admin
 set PATH=%ORACLE_HOME%;%ORACLE_HOME%\bin;%ORACLE_HOME%\OPatch;%PATH%
 
 goto :EOF
 
+REM #####
+REM #  Oracle Database
+REM #####
 
-
-#####
-#
-#####
-
-:SetEnvFor_<====DATABASE====>
+:SetEnvFor_<====SID====>
 
 REM # Database Settings
 set ORACLE_SID=<====SID====>
-set CONNECT_STRING=
 set ORACLE_UNQNAME=%ORACLE_SID%
+REM # When CONNECT_STRING is empty program will set it as "/ as sysdba"
+set CONNECT_STRING=
 REM # Database Settings if these not filled the script will attemt to retrieve these variabelen from the database using the CONNECT_STRING.
 set NLS_LANG=
 set BDUMP=
 set UDUMP=
 REM # Oracle Software Paramaters
 set ORACLE_BASE=<=====ORACLE_BASE====>
-set ORACLE_HOME=%ORACLE_BASE%\Product\oradb11R2
+set ORACLE_HOME=<=====ORACLE_HOME====>
 set TNS_ADMIN=%ORACLE_HOME%\network\admin
 set PATH=%ORACLE_HOME%;%ORACLE_HOME%\bin;%ORACLE_HOME%\OPatch;%PATH%
 REM # If using RMAN fill in these values else leave empty
@@ -199,7 +194,11 @@ if "d-%ORACLE_SID%" NEQ "d-" (
 
     if "D-%RMAN_REP_CONNECT%" NEQ "D-" (
        doskey RMANN=rman catalog %RMAN_REP_CONNECT% target %RMAN_TARGET_CONNECT%
-    )
+    ) else (
+	  if "D-%RMAN_TARGET_CONNECT%" NEQ "D-" (
+	    doskey RMANN=rman target %RMAN_TARGET_CONNECT%
+	  )
+	)
     
     if exist %BDUMP%\alert_%ORACLE_SID%.log (doskey tallert=tail -f %BDUMP%\alert_%ORACLE_SID%.log) 
 
