@@ -188,8 +188,7 @@ if "d-%ORACLE_SID%" NEQ "d-" (
     if "d-%BDUMP%" EQU "d-" ( call :SET_BDUMP )
     if "d-%UDUMP%" EQU "d-" ( call :SET_UDUMP )
 
-    doskey sqlpp=sqlplus %CONNECT_STRING%
-    doskey svrmgrl=sqlplus %CONNECT_STRING%
+    if 'd-%CONNECT_STRING%' EQU 'd-' ( doskey sqlpp=sqlplus / as sysdba ) else (  doskey sqlpp=sqlplus %CONNECT_STRING% )
     doskey ls=dir
 
     if "D-%RMAN_REP_CONNECT%" NEQ "D-" (
